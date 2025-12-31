@@ -5,5 +5,7 @@ last update: 202512241438
 maintenance contact: kwokyam-tam@tglobalcorp.com
 
 Under construction
+
 release notes:
+
 202512310915, add SOP in user_guide/SOP/How to invoke the embedded system ... 
