@@ -23,4 +23,12 @@ Currently recommended terminal software to access i.MX8:
 1. puTTY
 2. Tera Term
 
-Last update: 202512310914, kytam
+For temporary demonstation:
+. gosim
+cd toStartWith202512241415
+. myStart.sh
+
+Wait until shutter mode is set to mode 1.  Then start any broswer with URL:https://172.16.14.61:3000.  Happy New Year, Krishn and Andhi.
+
+
+Last update: 202512311430, kytam
