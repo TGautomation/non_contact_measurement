@@ -1,0 +1,26 @@
+[How to invoke the embedded system server ...]
+
+The embedded system is run in a hardware box called i.MX8.  Power on i.MX8.
+Connect to i.MX8 through a serial cable.
+Through Tera Term (5) or puTTY, open a terminal.
+In the terminal, login as user: root, no password.  All commands are issued as dot+space+command.
+Type ". gosim" and hit ENTER to change directory to /opt/tglobal/simulation
+Type ". start_engine.sh" and hit ENTER to invoke the server.
+Access the server through a browser with URL https://172.16.14.61:3000 .
+
+Additional commands:
+cd --- change directory
+ls -al --- list current directory.
+
+Using archived instances
+When the /opt/tglobal/simulation directory is in the course of development and troubleshooting, it may not be available to testing or demonstration.   Use any of the archive copies.  Recommended copies are names as ok_date_tags ... .
+Obsolete ok candidates are moved to the archive directory.  Current ok directories are: ok_20251219_ambient_temperature, ok_202512221800_power_meter.
+Change directory to one of these ok directories.
+Type ". myStart.sh" and hit ENTER to invoke the server.
+Access the server in the same way as to the standard server, i.e. through a broswer with URL https://172.16.14.61:3000.
+
+Currently recommended terminal software to access i.MX8:
+1. puTTY
+2. Tera Term
+
+Last update: 202512310914, kytam
