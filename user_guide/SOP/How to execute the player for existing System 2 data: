@@ -1,4 +1,3 @@
-root@imx8mprsb3720a2:/opt/tglobal/player# cat readme.txt
 [How to execute the player for existing System 2 data:]
 
 Running non-contact measurement with System 2 generates a CSV file.  This player is created to replay the process with this set of CSV data.
@@ -201,4 +200,4 @@ results: {"value":3.0,"voltage":0.4815}
 
 === Self test completed ===
 
-Last update: 202601121550, kytam
+Last update: 202601121555, kytam
