@@ -8,6 +8,7 @@ Through Tera Term (5) or puTTY, open a terminal.
 In the terminal, login as user: root, no password.  All commands are issued as dot+space+command.
 
 Type ". startEmulation.sh" and hit ENTER to start the RESTful server and to start the emulator.
+Type ". startEmulation.sh defaultEmulatedCu3V70s.csv" and hit ENTER to start the RESTful server and to start the emulator with the file defaultEmulatedCu3V70s.csv.
 Type ". self_test.sh" and hit ENTER to perform self-test.
 Type ". stopEmulation.sh" and hit ENTER to stop the RESTful server and to stop the emulator.
 
@@ -18,8 +19,9 @@ Access the server through the following ways:
 4. For individual test item execution using a terminal, taking Tj as an illustration, type "curl http://172.14.16.61:4000/get_temperature?channel=Tj" in the terminal.
 
 Demonstration commands:
-Type ". startEnumlation.sh" in one terminal.
+Type ". startEmulation.sh" in one terminal.
 Type ". self_test.sh" in another terminal.
+Type ". stopEmulation.sh" in any of the terminals.
 
 Additional commands:
 cd -- change directory
@@ -200,4 +202,4 @@ results: {"value":3.0,"voltage":0.4815}
 
 === Self test completed ===
 
-Last update: 202601121555, kytam
+Last update: 202601121650, kytam
