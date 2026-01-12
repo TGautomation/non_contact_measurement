@@ -9,10 +9,18 @@ Through Tera Term (5) or puTTY, open a terminal.
 In the terminal, login as user: root, no password.  All commands are issued as dot+space+command.
 
 Type ". startEmulation.sh" and hit ENTER to start the RESTful server and to start the emulator.
+Type ". self_test.sh" and hit ENTER to perform self-test.
 Type ". stopEmulation.sh" and hit ENTER to stop the RESTful server and to stop the emulator.
+
 Access the server through the following ways:
 1. Browser with URL http://172.16.14.16:4000 plus the requested meta data sub-URL. Synopsis follows in self-test.
-2. Linux/Unix/iOS terminal: type "curl http://172.16.14.16:400 plus the request data meta data sub-URL.  Synopsis follows in self-test.
+2. Linux/Unix/iOS terminal: type "curl http://172.16.14.16:4000 plus the request data meta data sub-URL.  Synopsis follows in self-test.
+3. For individual test item execution using a browser, taking Tj as an illustration, type "http://172.14.16.61:4000/get_temperature?channel=Tj" in the browser.
+4. For individual test item execution using a terminal, taking Tj as an illustration, type "curl http://172.14.16.61:4000/get_temperature?channel=Tj" in the terminal.
+
+Demonstration commands:
+Type ". startEnumlation.sh" in one terminal.
+Type ". self_test.sh" in another terminal.
 
 Additional commands:
 cd -- change directory
