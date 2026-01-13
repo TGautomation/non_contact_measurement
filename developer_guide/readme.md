@@ -1,4 +1,4 @@
-[readdme.md]
+[readme.md]
 Under construction
 
 This is the repository to document TGlobal Non-contact Measurement Utilities, for developers and SOP for users. Target user: TG non-contact measurement lab staff. last update: 202601131010 maintenance contact: kwokyam-tam@tglobalcorp.com
