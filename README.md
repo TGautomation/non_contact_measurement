@@ -8,5 +8,5 @@ Under construction
 
 release notes:
 
-202512310915, add SOP in user_guide/SOP/How to invoke the embedded system ... 
+202512310915, add SOP in user_guide/SOP/How to invoke the embedded system ... <br>
 202601131000, add SOP in user_guide/SOP/How to execute the player for existing System 2 data:
