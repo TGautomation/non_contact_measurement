@@ -202,4 +202,7 @@ results: {"value":3.0,"voltage":0.4815}
 
 === Self test completed ===
 
-Last update: 202601121650, kytam
+Maintenance:
+Source codes are located at:  W:\研發暨科專產學處\TAM\workspace\automation\RESTfulEmulation\source\ and be run in i.MX8 at /opt/tglobal/player .
+
+Last update: 202601131000, kytam
