@@ -2,4 +2,5 @@ readme.md Under construction
 
 Chapters:
 
-How to invoke the embedded system server ...
+1. How to invoke the embedded system server ...
+2. How to execute the player for existing System 2 data:
