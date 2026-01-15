@@ -1,0 +1,11 @@
+[Maintenance][VM][How to expand VM disk space]
+Host VMware GUI | Expand Disk | Save | PowerOn 
+login to vu2204 and do the following:
+df => /dev/sda3 is mounted on /
+lsblk -f => non-LVM (\sda3 ext4 1.0 c994f606-1eef-4933-b9e8-d0b5cebb92db 57.5G 86%)
+sudo apt install cloud-guest-utils
+sudo growpart /dev/sda 3
+sudo resize2fs /dev/sda3
+check by df -h / or lsblk for /dev/sda3 and /.  The disk space shows new size
+
+last update: 20250115
