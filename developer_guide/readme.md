@@ -12,5 +12,6 @@ Source codes are located at: W:\研發暨科專產學處\TAM\workspace\automatio
 
 release notes:
 
+202601150930, add SOP in developer_guide/VM/How to expand VM disk space <br>
 202601131010, add SOP in user_guide/SOP/How to invoke the embedded system ... <br>
 202601131000, add SOP in user_guide/SOP/How to execute the player for existing System 2 data:
