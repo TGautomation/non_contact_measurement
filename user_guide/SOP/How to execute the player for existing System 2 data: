@@ -27,182 +27,79 @@ Additional commands:
 cd -- change directory
 ls -al -- list current directory.
 
-Self-test:
---- get_meta_data ---
-command: curl -s http://172.16.14.61:4000/get_meta_data
-results: {"power":{"value":3.0,"voltage":0.4874},"temperature":{"Tc":56.7,"Tj":57.6,"Tx1":50.5,"Tx2":50.5},"time":{"absolute":"08:44:45.9","relative":45.4},"voltage":{"VTc":0.5806,"VTj":0.5033,"VTx1":0.4272,"VTx2":0.4874}}
-
---- get_time (all) ---
-command: curl -s http://172.16.14.61:4000/get_time
-results: {"absolute":"08:44:45.9","relative":45.4}
-
---- get_time?all ---
-command: curl -s http://172.16.14.61:4000/get_time?all
-results: {"absolute":"08:44:46.0","relative":45.6}
-
---- get_time?type=absolute ---
-command: curl -s http://172.16.14.61:4000/get_time?type=absolute
-results: {"absolute":"08:44:46.0"}
-
---- get_time?type=relative ---
-command: curl -s http://172.16.14.61:4000/get_time?type=relative
-results: {"relative":45.6}
-
---- get_temperature (all) ---
-command: curl -s http://172.16.14.61:4000/get_temperature
-results: {"Tc":56.6,"Tj":57.7,"Tx1":50.6,"Tx2":50.5}
-
---- get_temperature?all ---
-command: curl -s http://172.16.14.61:4000/get_temperature?all
-results: {"Tc":56.6,"Tj":57.7,"Tx1":50.6,"Tx2":50.5}
-
---- get_temperature?channel=Tj ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tj
-results: {"Tj":57.7}
-
---- get_temperature?channel=Tc ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tc
-results: {"Tc":56.6}
-
---- get_temperature?channel=Tx1 ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tx1
-results: {"Tx1":50.6}
-
---- get_temperature?channel=Tx2 ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tx2
-results: {"Tx2":50.5}
-
---- get_voltage (all) ---
-command: curl -s http://172.16.14.61:4000/get_voltage
-results: {"VPower":0.4314,"VTc":0.5358,"VTj":0.5858,"VTx1":0.3961,"VTx2":0.4314}
-
---- get_voltage?all ---
-command: curl -s http://172.16.14.61:4000/get_voltage?all
-results: {"VPower":0.4314,"VTc":0.5358,"VTj":0.5858,"VTx1":0.3961,"VTx2":0.4314}
-
---- get_voltage?channel=VTj ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTj
-results: {"VTj":0.5858}
-
---- get_voltage?channel=VTc ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTc
-results: {"VTc":0.6081}
-
---- get_voltage?channel=VTx1 ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTx1
-results: {"VTx1":0.4718}
-
---- get_voltage?channel=VTx2 ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTx2
-results: {"VTx2":0.4815}
-
---- get_voltage?channel=VPower ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VPower
-results: {"VPower":0.4815}
-
---- get_power (all) ---
-command: curl -s http://172.16.14.61:4000/get_power
-results: {"value":3.0,"voltage":0.4815}
-
---- get_power?type=value ---
-command: curl -s http://172.16.14.61:4000/get_power?type=value
-results: {"value":3.0,"voltage":0.4815}
-
---- get_power?type=voltage ---
-command: curl -s http://172.16.14.61:4000/get_power?type=voltage
-results: {"value":3.0,"voltage":0.4815}
-
-=== Self test completed ===
-root@imx8mprsb3720a2:/opt/tglobal/player# . self_test.sh
-=== Self test for Emulator RESTful APIs ===
+Self-test for Emulator RESTful APIs:
 
 --- get_meta_data ---
-command: curl -s http://172.16.14.61:4000/get_meta_data
-results: {"power":{"value":3.0,"voltage":0.4874},"temperature":{"Tc":56.7,"Tj":57.6,"Tx1":50.5,"Tx2":50.5},"time":{"absolute":"08:44:45.9","relative":45.4},"voltage":{"VTc":0.5806,"VTj":0.5033,"VTx1":0.4272,"VTx2":0.4874}}
+command: curl -s http://172.16.14.61:/get_meta_data
+results: {"time": {"absolute": "09:09:01.5", "relative": 70.0}, "temperature": {"Tj": 52.0, "Tc": 51.4, "Tx1": 37.6, "Tx2": 37.6}, "voltage": {"VTj": 0.5082, "VTc": 0.5059, "VTx1": 0.3656, "VTx2": 0.3656}, "power": {"Power": 3.4, "VPower": 0.3656}, "evaluation": {"results": "PASS", "reason": "Tj-Tc <= 5\nTc-Tx <= 5"}}
 
 --- get_time (all) ---
-command: curl -s http://172.16.14.61:4000/get_time
-results: {"absolute":"08:44:45.9","relative":45.4}
+command: curl -s http://172.16.14.61:/get_meta_data/time
+results: {"absolute": "09:09:01.5", "relative": 70.0}
 
---- get_time?all ---
-command: curl -s http://172.16.14.61:4000/get_time?all
-results: {"absolute":"08:44:46.0","relative":45.6}
+--- get_time/absolute ---
+command: curl -s http://172.16.14.61:/get_meta_data/time/absolute
+results: {"absolute": "09:09:01.5"}
 
---- get_time?type=absolute ---
-command: curl -s http://172.16.14.61:4000/get_time?type=absolute
-results: {"absolute":"08:44:46.0"}
-
---- get_time?type=relative ---
-command: curl -s http://172.16.14.61:4000/get_time?type=relative
-results: {"relative":45.6}
+--- get_time/relative ---
+command: curl -s http://172.16.14.61:/get_meta_data/time/relative
+results: {"relative": 70.0}
 
 --- get_temperature (all) ---
-command: curl -s http://172.16.14.61:4000/get_temperature
-results: {"Tc":56.6,"Tj":57.7,"Tx1":50.6,"Tx2":50.5}
+command: curl -s http://172.16.14.61:/get_meta_data/temperature
+results: {"Tj": 52.0, "Tc": 51.4, "Tx1": 37.6, "Tx2": 37.6}
 
---- get_temperature?all ---
-command: curl -s http://172.16.14.61:4000/get_temperature?all
-results: {"Tc":56.6,"Tj":57.7,"Tx1":50.6,"Tx2":50.5}
+--- get_temperature/Tj ---
+command: curl -s http://172.16.14.61:/get_meta_data/temperature/Tj
+results: {"Tj": 52.0}
 
---- get_temperature?channel=Tj ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tj
-results: {"Tj":57.7}
+--- get_temperature/Tc ---
+command: curl -s http://172.16.14.61:/get_meta_data/temperature/Tc
+results: {"Tc": 51.4}
 
---- get_temperature?channel=Tc ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tc
-results: {"Tc":56.6}
+--- get_temperature/Tx1 ---
+command: curl -s http://172.16.14.61:/get_meta_data/temperature/Tx1
+results: {"Tx1": 37.6}
 
---- get_temperature?channel=Tx1 ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tx1
-results: {"Tx1":50.6}
-
---- get_temperature?channel=Tx2 ---
-command: curl -s http://172.16.14.61:4000/get_temperature?channel=Tx2
-results: {"Tx2":50.5}
+--- get_temperature/Tx2 ---
+command: curl -s http://172.16.14.61:/get_meta_data/temperature/Tx2
+results: {"Tx2": 37.6}
 
 --- get_voltage (all) ---
-command: curl -s http://172.16.14.61:4000/get_voltage
-results: {"VPower":0.4314,"VTc":0.5358,"VTj":0.5858,"VTx1":0.3961,"VTx2":0.4314}
+command: curl -s http://172.16.14.61:/get_meta_data/voltage
+results: {"VTj": 0.5082, "VTc": 0.5059, "VTx1": 0.3656, "VTx2": 0.3656}
 
---- get_voltage?all ---
-command: curl -s http://172.16.14.61:4000/get_voltage?all
-results: {"VPower":0.4314,"VTc":0.5358,"VTj":0.5858,"VTx1":0.3961,"VTx2":0.4314}
+--- get_voltage/VTj ---
+command: curl -s http://172.16.14.61:/get_meta_data/voltage/VTj
+results: {"VTj": 0.5082}
 
---- get_voltage?channel=VTj ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTj
-results: {"VTj":0.5858}
+--- get_voltage/VTc ---
+command: curl -s http://172.16.14.61:/get_meta_data/voltage/VTc
+results: {"VTc": 0.5059}
 
---- get_voltage?channel=VTc ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTc
-results: {"VTc":0.6081}
+--- get_voltage/VTx1 ---
+command: curl -s http://172.16.14.61:/get_meta_data/voltage/VTx1
+results: {"VTx1": 0.3656}
 
---- get_voltage?channel=VTx1 ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTx1
-results: {"VTx1":0.4718}
-
---- get_voltage?channel=VTx2 ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VTx2
-results: {"VTx2":0.4815}
-
---- get_voltage?channel=VPower ---
-command: curl -s http://172.16.14.61:4000/get_voltage?channel=VPower
-results: {"VPower":0.4815}
+--- get_voltage/VTx2 ---
+command: curl -s http://172.16.14.61:/get_meta_data/voltage/VTx2
+results: {"VTx2": 0.3656}
 
 --- get_power (all) ---
-command: curl -s http://172.16.14.61:4000/get_power
-results: {"value":3.0,"voltage":0.4815}
+command: curl -s http://172.16.14.61:/get_meta_data/power
+results: {"Power": 3.4, "VPower": 0.3656}
 
---- get_power?type=value ---
-command: curl -s http://172.16.14.61:4000/get_power?type=value
-results: {"value":3.0,"voltage":0.4815}
+--- get_power/Power ---
+command: curl -s http://172.16.14.61:/get_meta_data/power/Power
+results: {"Power": 3.4}
 
---- get_power?type=voltage ---
-command: curl -s http://172.16.14.61:4000/get_power?type=voltage
-results: {"value":3.0,"voltage":0.4815}
+--- get_power/VPower ---
+command: curl -s http://172.16.14.61:/get_meta_data/power/VPower
+results: {"VPower": 0.3656}
 
 === Self test completed ===
 
 Maintenance:
 Source codes are located at:  W:\研發暨科專產學處\TAM\workspace\automation\RESTfulEmulation\source\ and be run in i.MX8 at /opt/tglobal/player .
 
-Last update: 202601131000, kytam
+Last update: 202601231136, kytam
