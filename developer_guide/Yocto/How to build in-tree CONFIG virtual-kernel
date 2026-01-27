@@ -1,0 +1,25 @@
+[How to build in-tree CONFIG virtual/kernel]
+
+Being in-tree means there is a CONFIG_XXX entry in .config or defconfig.  Drivers like TPLink Wireless 8821au are not in-tree modules.  Drivers such as USB-Serial-Converters are in-tree modules.
+The following describes the procedure to include the PL2303 driver for the shutter controller USB convertable cable.
+# bitbake -c cleansstate imx-image-full
+bitbake -c cleansstate virtual/kernel # must-do before menuconfig
+
+bitbake -c menuconfig virtual/kernel
+1. Set CONFIG_USB_SERIAL_PL2303=y
+2. Set CONFIG_ADVANCED_ROUTER=y
+   (implicitly CONFIG_IP_MULTIPLE_TABLES=y)
+That is: Set
+    Device Drivers | USB support | USB Serial Converter support | USB Prolific 2303 Single Port Serial Driver = Y
+    Networking support | Network options | TCP/IP networking | IP: advanced router = Y
+
+bitbake -c savedefconfig virtual/kernel
+1. cp -p ~/adv-release-bsp/3720a2/tmp/work/imx8mprsb3720a2-poky-linux/linux-imx/6.1.22+gitAUTOINC+2a654b377a-r0/build/defconfig  ~/adv-release-bsp/sources/meta-tglobal/recipes-kernel/linux-imx/myDefconfig
+2. vi linux-imx_%.bbappend
+     SRC_URI += file://myDefconfig
+
+bitbake -c cleansstate virtual/kernel
+# time bitbake virtual/kernel (~6)
+time bitbake imx-image-full (!12min)
+
+last update: 202701270930
