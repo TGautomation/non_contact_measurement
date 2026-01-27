@@ -24,7 +24,7 @@ time bitbake imx-image-full (!12min)
 
 last update: 202601270930
 
-p.s. on classic Yocto workflow vs vendor customized Yocto workflow (last update: 202601271550)
+p.s. on conventional Yocto workflow vs vendor customized Yocto workflow (last update: 202601271550)
 
 Kernel Module Integration Workflows — i.MX8 Yocto Linux 4.2
 Item	                  Kernel-Integrated Build Workflow (KIBW)	            Vendor Binary Module Workflow (VBMW)
