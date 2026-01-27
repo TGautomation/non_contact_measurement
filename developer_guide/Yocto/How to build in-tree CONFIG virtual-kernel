@@ -1,6 +1,6 @@
 [How to build in-tree CONFIG virtual/kernel]
 
-Being in-tree means there is a CONFIG_XXX entry in .config or defconfig.  Drivers like TPLink Wireless 8821au are not in-tree modules.  Drivers such as USB-Serial-Converters are in-tree modules.
+Being in-tree means there is a CONFIG_XXX entry in .config or defconfig, i.e. in-kernel-tree.  Drivers like TPLink Wireless 8821au are not in-tree modules.  Drivers such as USB-Serial-Converters are in-tree modules.
 The following describes the procedure to include the PL2303 driver for the shutter controller USB convertable cable.
 # bitbake -c cleansstate imx-image-full
 bitbake -c cleansstate virtual/kernel # must-do before menuconfig
@@ -22,4 +22,47 @@ bitbake -c cleansstate virtual/kernel
 # time bitbake virtual/kernel (~6)
 time bitbake imx-image-full (!12min)
 
-last update: 202701270930
+last update: 202601270930
+
+p.s. on classic Yocto workflow vs vendor customized Yocto workflow (last update: 202601271550)
+
+Kernel Module Integration Workflows — i.MX8 Yocto Linux 4.2
+Item	                  Kernel-Integrated Build Workflow (KIBW)	            Vendor Binary Module Workflow (VBMW)
+---------------------------------------------------------------------------------------------------------------------
+Primary purpose	      Build and maintain kernel drivers from kernel source	Integrate prebuilt vendor kernel modules
+Applies to	            PL2303 (USB-Serial)	                                 bio4704.ko, biokernbase.ko
+Driver source	         Linux kernel source tree	                           Vendor-supplied binaries
+Built by Yocto	         Yes	                                                No
+Compilation location	   During Yocto kernel build	                           Not compiled in Yocto
+Kernel config required	Yes (CONFIG_USB_SERIAL, CONFIG_USB_SERIAL_PL2303)	   No
+Module form	            Built-in (=y) or kernel module (=m)	                  Kernel module only (*.ko)
+Binary origin	         Generated during kernel build	                        Provided by vendor
+Manual .ko copying      No	                                                   No (must be via recipe)
+  allowed
+Yocto integration method   Kernel config + kernel recipe + image install	   Dedicated Yocto recipe installing binaries
+Install path in rootfs	/lib/modules/<kernel>/kernel/drivers/usb/serial/	   /lib/modules/<kernel>/extra/<vendor>/
+depmod required	      Automatically handled by kernel packaging	            Required during image build or post-install
+Kernel ABI dependency	Always correct (same build)	                        Must be verified explicitly
+Kernel upgrade impact	Rebuild kernel	                                       Vendor must re-provide compatible .ko
+Risk of loss across     Low	                                                High if binaries are unmanaged
+  builds  	
+Source of truth	      Kernel source + kernel config	                        Vendor .ko binaries + recipe
+Maintenance ownership	BSP / platform team	                                 Vendor + integration team
+Failure mode if misused	Driver missing from image	                           invalid module format, load failure
+
+Maintenance Rules (Normative)
+Module	               Required Workflow	                                    Rule
+PL2303	               Kernel-Integrated Build Workflow	                     Must always be built from kernel source
+bio4704.ko / biokernbase.ko	Vendor Binary Module Workflow	                  Must never be rebuilt from kernel source
+
+Compliance Checklist (Release Gate)
+Check	                        KIBW (PL2303)	                                 VBMW (Vendor: bio4704.ko, biokernbase.ko)
+Kernel config verified	      ✔	                                             N/A
+.ko produced by kernel build	✔	                                             ✖
+Vendor binaries versioned	   N/A	                                          ✔
+Correct /lib/modules/<kernel> ✔	                                             ✔
+  path	
+depmod completed            	✔	                                             ✔
+modprobe success	            ✔	                                             ✔
+Kernel version change         ✔	                                             ✔
+ n reviewed
