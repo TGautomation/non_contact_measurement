@@ -103,3 +103,14 @@ Maintenance:
 Source codes are located at:  W:\研發暨科專產學處\TAM\workspace\automation\RESTfulEmulation\source\ and be run in i.MX8 at /opt/tglobal/player .
 
 Last update: 202601231138, kytam
+
+New Features:
+Add handling of Tx, VTx, DeltaT, DeltaTjc, DeltaTcx.
+Command:
+1. curl -s http://172.16.14.61/get_meta_data/temperature/Tx to get Tx1 and Tx2 as a group.
+2. curl -s http://172.16.14.61/get_meta_data/temperature/DeltaTjc
+3. curl -s http://172.16.14.61/get_meta_data/temperature/DeltaTcx
+4. curl -s http://172.16.14.61/get_meta_data/temperature/DeltaT to get DeltaTjc, DeltaTcx as a group.
+5. curl -s http://172.16.14.61/get_meta_data/voltage/VTx to get VTx1 and VTx2 as a group.
+
+Last update: 202603021700, kytam
