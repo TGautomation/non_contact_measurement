@@ -114,3 +114,11 @@ Command:
 5. curl -s http://172.16.14.61/get_meta_data/voltage/VTx to get VTx1 and VTx2 as a group.
 
 Last update: 202603021700, kytam
+
+New Features:
+Enhance handling of VPower.
+Command:
+1. curl -s http://172.16.14.61/get_meta_data/voltage/VPower to obtain VPower through voltage bundle.
+2. curl -s http://172.16.14.61/get_meta_data/power/VPower to obtain VPower through power bundle.
+
+Last update: 202603051008, kytam
