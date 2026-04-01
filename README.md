@@ -9,4 +9,5 @@ Under construction
 release notes:
 
 202512310915, add SOP in user_guide/SOP/How to invoke the embedded system ... <br>
-202601131000, add SOP in user_guide/SOP/How to execute the player for existing System 2 data:
+202601131000, add SOP in user_guide/SOP/How to execute the player for existing System 2 data: <br>
+202604010940, add SOP in user_guid/SOP/How to execute RESTful API to configure TG embedded system:
