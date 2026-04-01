@@ -1,0 +1,267 @@
+[How to execute RESTFUL API to configure TG embedded system:]
+
+Prerequisite: To get the TG embedded system ready, please refer to the document 
+https://github.com/TGautomation/non_contact_measurement/blob/cba7557764ffe0113af6f7ea7729ebf9dbe2854e/user_guide/SOP/How%20to%20invoke%20the%20embedded%20system%20server....
+
+This document is to illustrate how to use standard GET/SET operations to configure the TG embedded measurement system.
+
+The embedded system is run in a hardware box called i.MX8.  Power on i.MX8.
+Connect to i.MX8 through a serial cable.
+Or through Tera Term (5) or puTTY, open a terminal.
+In the terminal, login as user: root, no password.  All commands are issued as dot+space+command.
+
+In one terminal, type "cd /opt/tglobal/simulation" and HIT ENTER to reach the operation directory.   Then type ". start_engine.sh" and hit ENTER to start the TG embedded measurement system.
+In another terminal, run the self test to demonstrate GET/SET operations for configuring the embedded system.
+Type ". self-test-config-api-get.sh" and hit ENTER to perform self-test demonstration of GET operations.
+Type ". self-test-config-api-set.sh" and hit ENTER to perform self-test demonstration of GET operations.
+
+
+Access the server to configure the system through the following ways:
+1. Browser with URL http://172.16.14.61:3000/trigger/config/ plus the intended configuration operation and item. Synopsis follows in the self-tests.
+2. Linux/Unix/iOS terminal: type "curl -s http://172.16.14.61:3000/trigger/config/ plus the request data meta data sub-URL.  Synopsis follows in self-test.
+3. For individual test item execution using a browser, taking tj_tc_delta as an illustration, type "http://172.14.16.62:3000/trigger/config/get/tj_tc_delta in the browser.
+4. For individual test item execution using a terminal, taking tj_tc_delta as an illustration, type "curl -s http://172.14.16.61:3000/trigger/config/get/Tj_tc_delta" in the terminal.
+
+Demonstration commands:
+Type ". start_engine.sh" in one terminal.
+Type ". self-test-config-api-get.sh" in another terminal for GET operations.
+Type ". self-test-config-api-set.sh" in another terminal for GET operations.
+
+Additional commands:
+cd -- change directory
+ls -al -- list current directory.
+
+Self-test for configuration RESTful APIs:
+=== Self test for GET config keys, RESTful APIs ===
+Config items for this test: station:emulator evaluation_time:70.0
+
+Verify config keys before GET test
+grep -E station|evaluation_time config.json
+    "station": "emulator",
+    "evaluation_time": 70.0,
+    "\"station": "emulator,evaluation_time:70.0\""
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/station
+{"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/{station}
+{"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/"station"
+{"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%22station%22
+{"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%7Bstation%7D
+{"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/evaluation_time
+{"evaluation_time":70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/{evaluation_time}
+{"evaluation_time":70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/"evaluation_time"
+{"evaluation_time":70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%22evaluation_time%22
+{"evaluation_time":70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%7Bevaluation_time%7D
+{"evaluation_time":70.0}
+
+---- Multi-key GET test ----
+curl -g -s http://172.16.14.62:3000/trigger/config/get/{station,evaluation_time}
+{"evaluation_time":70.0,"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/{station evaluation_time}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/"station,evaluation_time"
+{"evaluation_time":70.0,"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/"station evaluation_time"
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%22station,evaluation_time%22
+{"evaluation_time":70.0,"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%22station evaluation_time%22
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%7Bstation,evaluation_time%7D
+{"evaluation_time":70.0,"station":"emulator"}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/get/%7Bstation evaluation_time%7D%7D
+
+Verify config keys after GET (should be unchanged)
+grep -E station|evaluation_time config.json
+    "station": "emulator",
+    "evaluation_time": 70.0,
+    "\"station": "emulator,evaluation_time:70.0\""
+
+==== GET self-test completed ====
+
+=== Self test for config SET, RESTful APIs ===
+Config items for this test: station:emulator evaluation_time:70.0
+
+Verify config keys before test
+grep -E station|evaluation_time config.json
+    "station": "emulator",
+    "evaluation_time": 70.0,
+    "\"station": "emulator,evaluation_time:70.0\""
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station/emulator
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station:emulator
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station=emulator
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station/{emulator}
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station/"emulator"
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station/%7Bemulator%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/station/%22emulator%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station:emulator}
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station=emulator}
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station:emulator"
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station=emulator"
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation:emulator%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation=emulator%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station:emulator%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station=emulator%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time/70.0
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time:70.0
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time=70.0
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time/{70.0}
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time/"70.0"
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time/%7B70.0%7D
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/evaluation_time/%2270.0%22
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{evaluation_time:70.0}
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{evaluation_time=70.0}
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"evaluation_time:70.0"
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"evaluation_time=70.0"
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bevaluation_time:70.0%7D
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bevaluation_time=70.0%7D
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22evaluation_time:70.0%22
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22evaluation_time=70.0%22
+{"saved":false,"updated":[{"key":"evaluation_time","value":70.0}]}
+
+---- Multi-key test ----
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station:emulator,evaluation_time:70.0}
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station=emulator,evaluation_time=70.0}
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station:emulator evaluation_time:70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/{station=emulator evaluation_time=70.0}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station:emulator,evaluation_time:70.0"
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station=emulator,evaluation_time=70.0"
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station:emulator%20evaluation_time:70.0"
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/"station=emulator%20evaluation_time=70.0"
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation:emulator,evaluation_time:70.0%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation=emulator,evaluation_time=70.0%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation:emulator%20evaluation_time:70.0%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%7Bstation=emulator%20evaluation_time=70.0%7D
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station:emulator,evaluation_time:70.0%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station=emulator,evaluation_time=70.0%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station:emulator%20evaluation_time:70.0%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+curl -g -s http://172.16.14.62:3000/trigger/config/set/%22station=emulator%20evaluation_time=70.0%22
+{"saved":false,"updated":[{"key":"station","value":"emulator"},{"key":"evaluation_time","value":70.0}]}
+
+Verify config keys before save
+grep -E station|evaluation_time config.json
+    "station": "emulator",
+    "evaluation_time": 70.0,
+    "\"station": "emulator,evaluation_time:70.0\""
+
+---- Save config ----
+curl -g -s http://172.16.14.62:3000/trigger/config/save
+{"results":"config saved"}
+
+Verify config keys after save
+grep -E station|evaluation_time config.json
+    "station": "emulator",
+    "evaluation_time": 70.0,
+    "\"station": "emulator,evaluation_time:70.0\""
+Maintenance:
+Source codes are located at:  W:\研發暨科專產學處\TAM\workspace\automation\RESTfulconfig\source\ and be run in i.MX8 at /opt/tglobal/simulation.
+
+Last update: 202604010940, kytam
