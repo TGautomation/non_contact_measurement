@@ -252,4 +252,4 @@ curl -g -s http://172.16.14.62/trigger/config/set/%22station=emulator%20evaluati
 Maintenance:
 Source codes are located at:  W:\研發暨科專產學處\TAM\workspace\automation\RESTfulconfig\source\ and be run in i.MX8 at /opt/tglobal/simulation.
 
-Last update: 202604010940, kytam
+Last update: 202604021155, kytam
