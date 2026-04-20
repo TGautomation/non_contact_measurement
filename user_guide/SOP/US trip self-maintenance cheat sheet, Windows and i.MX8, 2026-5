@@ -33,14 +33,29 @@ Press any key to continue . . .
 3.2 Windows will bear a default IP address such as 169.254.219.37.  i.MX8 should have been booted up with IP address 169.254.219.61 in the same network segment as preset in its offline configuration.
 3.3 In Windows, open a browser.  Access the operation GUI of i.MX8 with its offline IP address, http://169.254.219.61:3000 .
 
-4. Set wireless connection to DHCP AP through API
-4.1 Given AP name and passphrase from on-site MIS administrator, e.g T-Global-4F-B-new, Tg2024091901.
-4.2 Disconnect Windows network cable or wifi.  Set up offline operation of Windows and i.MX8.
-4.3 Boot offline version of i.MX8.  Suppose the offline IP address is 169.254.219.61
-4.4 In Windows, in the browser address bar, type http://169.254.219.61/set_wifi/<AP_name>/<passphrase> .  This will set up the wifi configuration to the mentioned Access Point.
-4.4 Return from the offline version of both machines.  Set Windows back to DHCP and i.MX8 boots as online version.
-4.6 Use ipLocator to obtain the newly assigned DHCP IP address of i.MX8, e.g. 172.16.14.61 .
-4.7 In Windows, open a browser.  Access the operation GUI of i.MX8 with its DHCP IP address, e.g. http://172.16.14.61:3000
+4. Set wireless connection to DHCP AP through compulsory config file transplate.
+4.1 Unplug the microSD card from i.MX8.
+4.2 Retrieve the required file (wpa_supplicant-wlan0.conf) from USB card reader under Window.
+4.3 Open wpa_supplicant-wlan0.conf in the USB thumb drive (e.g. boot(F:) wpa_supplicant-wlan0.conf)
+4.4 In the file, fill in the SSID (AP name) and PSK (password) in the following format.
+    network={
+        ssid="T-Global-G1-4F-B-new"        
+        psk="Tg2025091901"
+        key_mgmt=WPA-PSK
+	       priority=400
+    }
+    In this scenario, we are trying to connect to the AP “T-Global-G1-4F-B-new” with passphrase “Tg2025091901.  Save the file.
+4.5 Plug back the microSD card to i.MX8.
+4.6 Reboot i.MX8.  i.MX8 will boot up with the updated SSID and its passphrase.
+4.7 Locate i.MX8’s DHCP address through ipLocator.
 
+5. Set wireless connection to DHCP AP through API (to be implemented)
+5.1 Given AP name and passphrase from on-site MIS administrator, e.g T-Global-4F-B-new, Tg2024091901.
+5.2 Disconnect Windows network cable or wifi.  Set up offline operation of Windows and i.MX8.
+5.3 Boot offline version of i.MX8.  Suppose the offline IP address is 169.254.219.61
+5.4 In Windows, in the browser address bar, type http://169.254.219.61/set_wifi/<AP_name>/<passphrase> .  This will set up the wifi configuration to the mentioned Access Point.
+5.4 Return from the offline version of both machines.  Set Windows back to DHCP and i.MX8 boots as online version.
+5.6 Use ipLocator to obtain the newly assigned DHCP IP address of i.MX8, e.g. 172.16.14.61 .
+5.7 In Windows, open a browser.  Access the operation GUI of i.MX8 with its DHCP IP address, e.g. http://172.16.14.61:3000
 
-last update: 202405151335
+last update: 202604201510
